@@ -19,7 +19,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace AppContest.Pages.Contests
 {
-    [Authorize]
+    [Authorize(Policy = "RequireContestAdministratorRole")]
     public class CreateModel : PageModel
     {
         private readonly IMediator _mediator;

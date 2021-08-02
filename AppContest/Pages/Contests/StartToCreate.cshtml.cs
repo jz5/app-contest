@@ -19,7 +19,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace AppContest.Pages.Contests
 {
-    [Authorize]
+    [Authorize(Policy = "RequireContestAdministratorRole")]
     public class StartToCreateModel : PageModel
     {
         private readonly IMediator _mediator;

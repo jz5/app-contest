@@ -21,7 +21,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace AppContest.Pages.Contests
 {
-    [Authorize]
+    [Authorize(Policy = "RequireContestAdministratorRole")]
     public class EditModel : PageModel
     {
         private readonly IMediator _mediator;

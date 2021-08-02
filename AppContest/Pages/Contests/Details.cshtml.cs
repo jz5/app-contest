@@ -20,7 +20,7 @@ using System.Xml.Linq;
 
 namespace AppContest.Pages.Contests
 {
-    [Authorize]
+    [Authorize(Policy = "RequireContestAdministratorRole")]
     public class DetailsModel : PageModel
     {
         private readonly IMediator _mediator;
