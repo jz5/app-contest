@@ -121,7 +121,7 @@ namespace AppContest.Pages.Contests
 
 ※ 詳細は、[{Name}]({Url}) を確認してください。
 
-アプリコンテストを調べるときは、プロ生提供の [アプリコンテストまとめ](https://contest.azurewebsites.net/) も活用してみてください。
+アプリコンテストを調べるときは、プロ生提供の [アプリコンテストまとめ](https://contest.pronama.jp/) も活用してみてください。
 ";
             }
         }
