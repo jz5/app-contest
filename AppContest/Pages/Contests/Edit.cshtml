@@ -1,0 +1,37 @@
+﻿@page "{id:long}"
+@model AppContest.Pages.Contests.EditModel
+@{
+    ViewData["Title"] = "コンテスト編集";
+}
+
+<div class="container">
+    <h2 class="fs-5 my-3">@ViewData["Title"] <a class="ms-2 fs-6" asp-page="/Contests/Delete" asp-route-id="@Model.Data.Id"><i class="fas fa-trash-alt"></i> 削除</a></h2>
+    <hr />
+
+    <form method="post">
+        @Html.ValidationDiv()
+        @Html.Input(m => m.Data.Id)
+        @Html.Input(model => model.Data.RowVersion)
+
+        @Html.FormBlock(m => m.Data.Name)
+        @Html.FormBlock(m => m.Data.Description, note: "※ 概要、特に何を募集するコンテストなのかを記載。コンテストのサイトの情報を理解して作成。ですます調・口語・「！」等を使わない。")
+        @Html.FormBlock(m => m.Data.StartDate, inputModifier: m => m.Attr("min", "2015-01-01"))
+        @Html.FormBlock(m => m.Data.StartTime, note: "※ 時刻指定がある場合は入力。日付のみの場合は、00:00 または未入力。")
+        @Html.FormBlock(m => m.Data.EndDate, inputModifier: m => m.Attr("min", "2015-01-01"))
+        @Html.FormBlock(m => m.Data.EndTime, note: "※ 時刻指定がある場合は入力。日付のみの場合は、00:00 または未入力。")
+        @Html.FormBlock(m => m.Data.Host)
+        @Html.FormBlock(m => m.Data.Requirements, note: "※ 応募者の資格（「不問」や「学生」など）。作品の条件を記載しないこと。")
+        @Html.FormBlock(m => m.Data.Url)
+        @Html.FormBlock(m => m.Data.Note, note: "※ 作品の応募の前に事前エントリー等が必要な場合や部門ごとに〆切が異なる場合などはその旨を記載（上記の項目で相違がある場合は記載）。")
+        @Html.FormBlock(m => m.Data.IsHidden, note: "※ 公開の判断に迷うコンテスト（アプリコンテストなのか判断しづらい、情報元がはっきりしないなど）の場合は非表示で登録。")
+
+        <div class="form-group">
+            <input type="submit" value="保存" class="btn btn-primary" />
+        </div>
+    </form>
+
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

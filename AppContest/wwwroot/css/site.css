@@ -1,0 +1,109 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+body, p, ul, li, pre {
+    font-family: fot-udmarugo-large-pr6n, sans-serif;
+    font-weight: 500;
+    font-style: normal;
+}
+
+h1, h2, h3, h4, h5, h6, span.deadline, .nav-link {
+    font-family: fot-udmarugo-large-pr6n, sans-serif;
+    font-weight: 600;
+    font-style: normal;
+}
+
+.theme-color {
+    color: #6f42c1;
+}
+
+.deadline, .duplicated, .wavy {
+    text-decoration: underline wavy #6f42c1;
+    text-underline-offset: 0.1rem;
+}
+
+a {
+    text-decoration: none;
+    color: #6f42c1;
+}
+
+    a:hover {
+        color: #6f42c1;
+        text-decoration: underline;
+    }
+
+button.nav-link:hover {
+    text-decoration: underline;
+}
+
+.banner {
+    background-color: #6f42c1;
+}
+
+
+
+a.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+.footer a {
+    color: #55595c;
+}
+
+input[type=time], input[type=date] {
+    width: auto;
+}
+
+pre {
+    white-space: pre-wrap;
+}
+
+
+.media {
+}
+
+.media-img {
+    width: 80px;
+    height: 64px;
+    float: left;
+    margin: 0 1rem 1rem 0;
+}
+
+.media-desc {
+    margin-left: 0;
+}
+
+img.character {
+    width: 128px;
+    height: 128px;
+}
+
+
+@media (min-width: 768px) {
+    .media {
+        display: flex;
+    }
+
+    .media-img {
+        width: 160px;
+        height: 128px;
+        float: none;
+        margin: 0;
+    }
+
+    .media-desc {
+        margin-left: 1rem;
+    }
+
+    img.character {
+        width: 256px;
+        height: 256px;
+    }
+}

@@ -1,0 +1,23 @@
+﻿@page
+@model AppContest.Pages.LicensesModel
+@{
+    ViewData["Title"] = "Licenses";
+}
+<div class=container>
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="fs-5 my-3">@ViewData["Title"]</h2>
+            <hr />
+
+            <ul class="lh-lg">
+                <li><a rel="license" href="https://github.com/jz5">アプリコンテストまとめ</a></li>
+                
+                @foreach (var f in Model.Data.LicenseFiles)
+                {
+                    <li><a rel="license" href="/licenses/@Uri.EscapeDataString(f.Filename)">@f.Title</a></li>
+                }
+            </ul>
+
+        </div>
+    </div>
+</div>

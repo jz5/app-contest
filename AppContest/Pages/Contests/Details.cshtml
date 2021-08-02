@@ -1,0 +1,93 @@
+﻿@page "{id:long}"
+@using AppContest.Models
+@model AppContest.Pages.Contests.DetailsModel
+@{
+    ViewData["Title"] = Model.Data.Name;
+}
+
+<div class=container>
+    <h2 class="fs-5 my-3">@ViewData["Title"] <a class="ms-2 fs-6" asp-page="/Contests/Edit" asp-route-id="@Model.Data.Id"><i class="fas fa-edit"></i> 編集</a></h2>
+    <hr />
+    <dl class="small row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Data.Description)
+        </dt>
+        <dd class="col-sm-10">
+            <display-tag for="Data.Description" />
+        </dd>
+        <dt class="col-sm-2">
+            @((Model.Data.StartDate, Model.Data.EndDate).ToFriendlyDateTitle())
+        </dt>
+        <dd class="col-sm-10">
+            @((Model.Data.StartDate, Model.Data.EndDate).ToFriendlyDate())
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Data.Host)
+        </dt>
+        <dd class="col-sm-10">
+            <display-tag for="Data.Host" />
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Data.Requirements)
+        </dt>
+        <dd class="col-sm-10">
+            <display-tag for="Data.Requirements" />
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Data.Url)
+        </dt>
+        <dd class="col-sm-10">
+            <a href="@Model.Data.Url" rel="noreferrer external">@Model.Data.Url</a>
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Data.Note)
+        </dt>
+        <dd class="col-sm-10">
+            <display-tag for="Data.Note" />
+        </dd>
+        <dt class="col-sm-2">
+            公開/非公開
+        </dt>
+        <dd class="col-sm-10">
+            @(Model.Data.IsHidden ? "非公開" : "公開中")
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Data.CreationDateTime)
+        </dt>
+        <dd class="col-sm-10">
+            <display-tag for="Data.CreationDateTime" />
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Data.CreatedBy)
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Data.CreatedBy.UserName
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Data.LastUpdatedDateTime)
+        </dt>
+        <dd class="col-sm-10">
+            <display-tag for="Data.LastUpdatedDateTime" />
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Data.LastUpdatedBy)
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Data.LastUpdatedBy.UserName
+        </dd>
+    </dl>
+
+    <div class="row">
+        <div class="col">
+            <h2 class="fs-5 mt-3 mb-3">Markdown</h2>
+            <hr />
+            <ul class="small">
+                <li>募集内容: 必要そうであれば、適宜説明を追加・編集する。</li>
+                <li>応募資格: 入力値は1行のテキストだが、部門別に資格が異なる場合などは、箇条書きにする。</li>
+                <li>応募期限: エントリー期間がある場合などは「※ エントリー期間は〇〇まで」のように補足を追記する。</li>
+                <li>表彰: 賞名・副賞などをわかる範囲で箇条書きする。部門別にある場合などは、適宜入れ子の箇条書きにする。</li>
+            </ul>
+            <textarea class="form-control-sm" cols="80" rows="30">@Model.Data.Markdown()</textarea>
+        </div>
+    </div>
+</div>

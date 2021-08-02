@@ -1,0 +1,169 @@
+﻿@page
+@model AppContest.Pages.Contests.IndexModel
+
+@{
+    ViewData["Title"] = "コンテスト一覧";
+}
+
+<div class=container-fluid>
+    <div class="row">
+        <div class="col">
+            <h2 class="fs-5 my-3">@ViewData["Title"] <span class="ms-2 fs-6 text-secondary">結果: @Model.Data.Contests.Count 件</span></h2>
+            <hr />
+
+            <div class="mb-3">
+                <form method="get" asp-page="StartToCreate">
+                    <div class="row g-2 align-items-center">
+                        <div class="col-auto">
+                            <label for="url" class="col-form-label"><i class="far fa-plus-circle"></i> 新規登録</label>
+                        </div>
+                        <div class="col">
+                            <div class="input-group">
+                                <input type="url" name="url" id="url" class="form-control" required="required"
+                                       placeholder="https://pronama.jp">
+                                <input type="submit" class="btn btn-primary" id="UrlButton" value="登録" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="mb-3">
+                <form method="get" asp-page="Index">
+                    <div class="row align-items-center">
+                        <div class="col-auto pe-0">
+                            <h3 class="fs-6 text-secondary mb-0"><i class="far fa-filter"></i> フィルター:</h3>
+                        </div>
+                        <div class="col-auto">
+                            <input class="form-check-input" type="checkbox" name="IsNotClosed" id="IsNotClosed"
+                                   value="true" @(Html.Raw(Model.Data.IsNotClosed ? "checked=\"checked\"" : ""))>
+                            <label class="form-check-label" for="IsNotClosed">
+                                募集中
+                            </label>
+                            <input class="form-check-input ms-1" type="checkbox" name="IsClosed" id="IsClosed"
+                                   value="true" @(Html.Raw(Model.Data.IsClosed ? "checked=\"checked\"" : ""))>
+                            <label class="form-check-label" for="IsClosed">
+                                募集終了
+                            </label>
+                        </div>
+                        <div class="col-auto ms-3 pe-0">
+                            <h3 class="fs-6 text-secondary mb-0"><i class="fas fa-sort-alt"></i> 表示順:</h3>
+                        </div>
+                        <div class="col-auto">
+                            <input class="form-check-input" type="radio" name="IsHidden" id="IsHidden1" value="false"
+                                   @(Html.Raw(!Model.Data.IsHidden ? "checked=\"checked\"" : ""))>
+                            <label class="form-check-label" for="IsHidden1">
+                                表示
+                            </label>
+                            <input class="form-check-input ms-1" type="radio" name="IsHidden" id="IsHidden2" value="true"
+                                   @(Html.Raw(Model.Data.IsHidden ? "checked=\"checked\"" : ""))>
+                            <label class="form-check-label" for="IsHidden2">
+                                非表示
+                            </label>
+                        </div>
+                        <div class="col-auto">
+                            <input class="form-check-input ms-1" type="radio" name="Order" id="OrderUpdateDateDesc" value="UpdateDateDesc"
+                                   @(Html.Raw(Model.Data.Order == IndexModel.Order.UpdateDateDesc ? "checked=\"checked\"" : ""))>
+                            <label class="form-check-label" for="OrderUpdateDateDesc">
+                                更新日降順
+                            </label>
+                            <input class="form-check-input" type="radio" name="Order" id="OrderEndDateDesc" value="EndDateDesc"
+                                   @(Html.Raw(Model.Data.Order == IndexModel.Order.EndDateDesc ? "checked=\"checked\"" : ""))>
+                            <label class="form-check-label" for="OrderEndDateDesc">
+                                終了日降順
+                            </label>
+                        </div>
+                        <div class="col-auto">
+                            <input type="submit" class="btn btn-primary" value="検索" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            @if (TempData["Message"] != null)
+            {
+                <div class="mb-3 alert alert-success" role="alert">
+                    <i class="far fa-check-circle"></i>
+                    @Html.Raw(@TempData["Message"])
+                </div>
+            }
+
+            <table class="table table-sm small">
+                <thead>
+                    <tr>
+                        @*<th></th>*@
+                        <th>
+                            @Html.DisplayNameFor(model => model.Data.Contests[0].Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Data.Contests[0].Description)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Data.Contests[0].StartDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Data.Contests[0].EndDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Data.Contests[0].Host)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Data.Contests[0].Requirements)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Data.Contests[0].Url)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Data.Contests[0].Note)
+                        </th>
+                        <th>
+                            <i class="fas fa-eye-slash" title="非表示"></i>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Data.Contests)
+                    {
+                        <tr>
+                            
+                            <td class="@(item.IsHidden ? "text-danger" : "")">
+                                <a asp-page="./Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Name)</a>
+                                @*<a asp-page="./Edit" asp-route-id="@item.Id"><i class="fas fa-edit" title="編集"></i></a>
+                                <a asp-page="./Details" asp-route-id="@item.Id"><i class="far fa-info-circle" title="詳細"></i></a>*@
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StartDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EndDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Host)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Requirements)
+                            </td>
+                            <td>
+                                <a href="@item.Url" rel="external noopener noreferrer">@(new Uri(item.Url).Host)</a>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Note)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IsHidden)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

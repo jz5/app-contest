@@ -1,0 +1,139 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-78588842-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-78588842-1');
+    </script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@(ViewData["Title"] == null ? "アプリコンテストまとめ" : ViewData["Title"] + " | アプリコンテストまとめ")</title>
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@@pronama" />
+    <meta name="twitter:title" content="@ViewBag.Title" />
+    @*<meta name="twitter:description" content="" />*@
+    <meta name="twitter:image" content="https://contest.azurewebsites.net/images/image.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="@ViewBag.Title" />
+    @*<meta property="og:description" content="" />*@
+    <meta property="og:url" content="https://contest.azurewebsites.net/" />
+    <meta property="og:site_name" content="アプリコンテストまとめ" />
+    <meta property="og:image" content="https://contest.azurewebsites.net/images/image.png" />
+    <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <script src="https://kit.fontawesome.com/1e0f238851.js" crossorigin="anonymous"></script>
+    <script>
+        (function(d) {
+          var config = {
+            kitId: 'ijf6ghv',
+            scriptTimeout: 3000,
+            async: true
+          },
+          h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+        })(document);
+    </script>
+    @if (!SignInManager.IsSignedIn(User))
+    {
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5991185227226997"
+            crossorigin="anonymous"></script>
+    }
+</head>
+<body>
+    @*<mini-profiler />*@
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-page="/Index"><i class="fas fa-rocket-launch theme-color"></i></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-page="/Index">募集中</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                募集終了
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                @for (var i = DateTime.Now.Year; i >= 2015; --i)
+                                {
+                                    <li><a class="dropdown-item" asp-page="/Contests/Closed" asp-route-year="@i">@(i)年</a></li>
+                                }
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-page="/Links">お役立ちリンク</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-page="/Contact">情報提供</a>
+                        </li>
+                    </ul>
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+    @if (Context.Request.Path.StartsWithSegments("/Identity"))
+    {
+        <div class="container">
+            <main>
+                @RenderBody()
+            </main>
+        </div>
+    }
+    else
+    {
+        <main>
+            @RenderBody()
+        </main>
+
+    }
+
+
+    <footer class="footer w-100 bg-light text-secondary p-3 mt-5 small">
+        <div class="ninja_onebutton">
+            <script type="text/javascript">
+                //<![CDATA[
+                (function (d) {
+                    if (typeof (window.NINJA_CO_JP_ONETAG_BUTTON_9813d92f60f3a85cbb108dbda34e2605) == 'undefined') {
+                        document.write("<sc" + "ript type='text\/javascript' src='\/\/omt.shinobi.jp\/b\/9813d92f60f3a85cbb108dbda34e2605'><\/sc" + "ript>");
+                    } else {
+                        window.NINJA_CO_JP_ONETAG_BUTTON_9813d92f60f3a85cbb108dbda34e2605.ONETAGButton_Load();
+                    }
+                })(document);
+                //]]>
+            </script><span class="ninja_onebutton_hidden" style="display:none;"></span><span style="display:none;" class="ninja_onebutton_hidden"></span>
+        </div>
+
+        <ul class="list-inline mb-1">
+            <li class="list-inline-item"><a asp-page="/Privacy">プライバシーポリシー</a></li>
+            <li class="list-inline-item"><a asp-page="/Licenses" rel="license">Licenses</a></li>
+            <li class="list-inline-item"><a href="https://pronama.jp/">プログラミング生放送</a></li>
+            <li class="list-inline-item"><a href="https://twitter.com/pronama" rel="external">Twitter</a></li>
+        </ul>
+        <div>© 2016-@DateTime.Now.Year <a href="https://pronama.co.jp">Pronama LLC</a></div>
+    </footer>
+
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/lodash.js/lodash.min.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+
+
+</body>
+</html>

@@ -1,0 +1,59 @@
+﻿@page
+@model AppContest.Pages.ContactModel
+@{
+    ViewData["Title"] = $"情報提供・お問い合わせ";
+}
+
+<div class="text-white banner p-4 p-sm-5">
+    <h1>アプリコンテストまとめ</h1>
+    <div class="d-flex">
+        <div class="flex-grow-1">
+            アプリコンテスト・ゲームコンテスト・ソフトウェアコンテスト・プログラミングコンテストなどをまとめています（アプリアイデアのみや組み込み系も含む）。ハッカソンや競技プログラミングは除いています。コンテストの情報もお待ちしています。
+        </div>
+        <div class="ms-3">
+            <img class="character" src="/images/kei.png" alt="プロ生ちゃん（暮井 慧）" />
+            <div class="text-end mt-2"><a class="small text-white" href="https://twitter.com/pronama" rel="external">プロ生ちゃん（暮井 慧）</a></div>
+        </div>
+    </div>
+</div>
+
+<div class=container>
+    <div class="row">
+        <div class="mb-3">
+            <h2 class="fs-4 mt-3 mb-3"><i class="far fa-comment-alt-smile theme-color"></i> @ViewData["Title"]</h2>
+            <div class="mb-1">コンテストの情報や、サイトへのコメント等 お待ちしています。返答が必要なお問い合わせは、info@pronama.jp まで。</div>
+            <div class="text-secondary mb-1"><i class="far fa-exclamation-triangle"></i> コンテスト情報の登録や修正をお約束するものではありません。また、個人情報を記載しないようお願いします。</div>
+        </div>
+
+        @if (TempData["Succeeded"] != null)
+        {
+            <div class="col mb-3">
+                <div class="alert alert-info" role="alert">
+                    @((bool)TempData["Succeeded"] ? "ありがとうございます" : "申し訳ございません。送信に失敗しました。メールでお問い合わせください。")
+                    <hr>
+                    <h3 class="fs-6">メッセージ</h3>
+                    <pre class="mb-0" style="overflow: unset;">@TempData["Message"]</pre>
+                </div>
+            </div>
+        }
+
+        <form method="post" class="mb-3">
+            @Html.ValidationDiv()
+            <div class="mb-3">
+                <label class="form-label" asp-for="Data.Message"></label>
+                <textarea class="form-control" rows="3" asp-for="Data.Message"></textarea>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-light"><i class="far fa-paper-plane"></i> 送信</button>
+            </div>
+        </form>
+
+        <div>
+            <i class="far fa-info-circle"></i> <a href="https://pronama.jp/about/" rel="external">運営者情報</a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

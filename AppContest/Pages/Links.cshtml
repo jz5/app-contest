@@ -1,0 +1,114 @@
+﻿@page
+@model AppContest.Pages.LinksModel
+@{
+    ViewData["Title"] = $"お役立ちリンク";
+}
+<div class="text-white banner p-4 p-sm-5">
+    <h1>アプリコンテストまとめ</h1>
+    <div class="d-flex">
+        <div class="flex-grow-1">
+            アプリコンテスト・ゲームコンテスト・ソフトウェアコンテスト・プログラミングコンテストなどをまとめています（アプリアイデアのみや組み込み系も含む）。ハッカソンや競技プログラミングは除いています。コンテストの情報もお待ちしています。
+        </div>
+        <div class="ms-3">
+            <img class="character" src="/images/kei4.png" alt="プロ生ちゃん（暮井 慧）" />
+            <div class="text-end mt-2"><a class="small text-white" href="https://twitter.com/pronama" rel="external">プロ生ちゃん（暮井 慧）</a></div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <h2 class="fs-4 mt-3 mb-5"><i class="far fa-laugh-beam theme-color" aria-hidden="true"></i> 開発に役立つサービス・提供中のサービスなど</h2>
+
+    <div class="media pb-5 mb-5 border-bottom border-light">
+        <a class="flex-shrink-0" href="https://px.a8.net/svt/ejp?a8mat=2BS6IT+D2XXTU+2PEO+BW8O2&a8ejpredirect=https%3A%2F%2Fcoconala.com%2F" rel="external noopener">
+            <img class="border bg-light media-img" src="@("https://coconala.com/".Thumbnail())" alt="" />
+        </a>
+        <div class="flex-grow-1 media-desc">
+            <h3 class="fs-5">
+                <a href="https://px.a8.net/svt/ejp?a8mat=2BS6IT+D2XXTU+2PEO+BW8O2&a8ejpredirect=https%3A%2F%2Fcoconala.com%2F" rel="external noopener">ココナラ</a>
+            </h3>
+            <p><span class="wavy">デザイン・イラスト・音楽などを依頼できるサービス</span>。アプリのロゴ作成やちょっとしたイラスト作成に使えます。ユーザーが出品しているサービスを購入する形式で、ほしい内容にあうサービスを検索して利用します。<a href="https://pronama.jp/">プロ生</a>でも利用しています。</p>
+            <p><i class="far fa-gift theme-color"></i> 招待コード「<span class="text-secondary">JX6NV</span>」。<a href="https://coconala.com/invite/JX6NV" rel="external noopener">招待コードを使って登録</a> すると300ポイントがもらえます（プロ生にも300ポイントが入ります）。</p>
+        </div>
+    </div>
+
+    <div class="media pb-5 mb-5 border-bottom border-light">
+        <a class="flex-shrink-0" href="">
+            <img class="border bg-light media-img" src="/images/pronama-chan-developer-support.png" alt="" />
+        </a>
+        <div class="flex-grow-1 media-desc">
+            <h3 class="fs-5">
+                <a href="https://kei.pronama.jp/pronama-chan-developer-support-program/" rel="external noopener">プロ生ちゃん アプリ開発支援プログラム</a>
+            </h3>
+            <p><a href="https://pronama.jp/">プロ生</a>では、プログラミングを学びたい人を対象に「<a href="https://kei.pronama.jp/pronama-chan-developer-support-program/">プロ生ちゃん アプリ開発支援プログラム</a>」を提供しています。</p>
+            <ul class="fa-ul lh-lg">
+                <li>
+                    <span class="fa-li"><i class="far fa-hand-point-right fa-lg text-secondary" aria-hidden="true"></i></span>
+                    <a href="https://pronama.jp/2016/10/12/pronama-chan-developer-support-program/">iOS アプリを無料で公開しませんか？</a>
+                </li>
+                <li>
+                    <span class="fa-li"><i class="far fa-hand-point-right fa-lg text-secondary" aria-hidden="true"></i></span>
+                    <a href="https://pronama.jp/2016/11/24/pronama-chan-developer-support-program-2nd/">Mac 開発環境を無料提供します</a>
+                </li>
+                <li>
+                    <span class="fa-li"><i class="far fa-hand-point-right fa-lg text-secondary" aria-hidden="true"></i></span>
+                    <a href="https://pronama.jp/2018/03/18/pronama-chan-developer-support-program-unity-teams/">Unity クラウドビルドも無料提供します</a>
+                </li>
+                <li>
+                    <span class="fa-li"><i class="far fa-hand-point-right fa-lg text-secondary" aria-hidden="true"></i></span>
+                    <a href="https://pronama.jp/2018/09/30/pronama-chan-developer-support-program-mac-app/">Mac アプリを無料で公開しませんか？</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="media pb-5 mb-5 border-bottom border-light">
+        <a class="flex-shrink-0" href="">
+            <img class="border bg-light media-img" src="/images/programming-sticker.png" alt="" />
+        </a>
+        <div class="flex-grow-1 media-desc">
+            <h3 class="fs-5">
+                LINE スタンプ販売中！
+            </h3>
+            <p>開発がはかどるかもしれない？ LINE スタンプ販売中です。</p>
+            <ul class="fa-ul lh-lg">
+                <li>
+                    <span class="fa-li"><i class="far fa-comment-smile fa-lg text-secondary" aria-hidden="true"></i></span>
+                    <a href="https://store.line.me/stickershop/product/1234712/ja" rel="external noopener">プロ生ちゃん（暮井 慧）</a>
+                </li>
+                <li>
+                    <span class="fa-li"><i class="far fa-comment-smile fa-lg text-secondary" aria-hidden="true"></i></span>
+                    <a href="https://store.line.me/stickershop/product/1299646/ja" rel="external noopener">プログラミング言語マスコット</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="media pb-5 mb-5 border-bottom border-light">
+        <a class="flex-shrink-0" href="">
+            <img class="border bg-light media-img" src="/images/pronama-chan-developer-support.png" alt="" />
+        </a>
+        <div class="flex-grow-1 media-desc">
+            <h3 class="fs-5">
+                作品に使えるプロ生ちゃんのイラスト・3Dモデル・ボイス提供中！
+            </h3>
+            <p>作品に使えるプロ生ちゃんの素材を提供中です。詳しくは <a href="https://kei.pronama.jp/">プロ生ちゃん</a> のサイトと <a href="https://kei.pronama.jp/guideline/">利用ガイドライン</a> を確認してください。</p>
+            <ul class="fa-ul lh-lg">
+                <li>
+                    <span class="fa-li"><i class="far fa-star fa-lg text-secondary" aria-hidden="true"></i></span>
+                    <a href="https://kei.pronama.jp/download/">ダウンロード</a>
+                </li>
+                <li>
+                    <span class="fa-li"><i class="far fa-star fa-lg text-secondary" aria-hidden="true"></i></span>
+                    <a href="https://kei.pronama.jp/guideline/">利用ガイドライン</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

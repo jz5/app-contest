@@ -1,0 +1,85 @@
+﻿@page
+@using AppContest.Models
+@model IndexModel
+@{
+    //ViewData["Title"] = "Home page";
+}
+
+<div class="text-white banner p-4 p-sm-5">
+    <h1>アプリコンテストまとめ</h1>
+    <div class="d-flex">
+        <div class="flex-grow-1">
+            アプリコンテスト・ゲームコンテスト・ソフトウェアコンテスト・プログラミングコンテストなどをまとめています（アプリアイデアのみや組み込み系も含む）。ハッカソンや競技プログラミングは除いています。コンテストの情報もお待ちしています。
+        </div>
+        <div class="ms-3">
+            <img class="character" src="/images/kei.png" alt="プロ生ちゃん（暮井 慧）" />
+            <div class="text-end mt-2"><a class="small text-white" href="https://twitter.com/pronama" rel="external">プロ生ちゃん（暮井 慧）</a></div>
+        </div>
+    </div>
+</div>
+<div class="container">
+
+    @if (Model.Data.RecentlyAddedContests.Any())
+    {
+        <ul class="small list-unstyled text-truncate mt-3">
+            @foreach (var item in Model.Data.RecentlyAddedContests)
+            {
+                <li>
+                    <span class="text-secondary">@item.CreationDateTime.ToString("yyyy/MM/dd")</span>
+                    <a class="ms-2" href="@item.Url" rel="external noopener">@item.Name</a> を追加
+                </li>
+            }
+        </ul>
+    }
+
+    <div class="row">
+        <h2 class="fs-4 mt-3 mb-1"><i class="fa fa-trophy-alt theme-color" aria-hidden="true"></i> 募集中のコンテスト <span class="ms-2 fs-6">@(Model.Data.Contests.Count)件</span></h2>
+        <p class="text-secondary small mb-4"><i class="far fa-info-circle"></i> 情報は登録時のものです。最新情報は、各サイトを確認してください。応募期限は、エントリー受付期限など、締め切りの早いものを掲載しています。</p>
+        @foreach (var item in Model.Data.Contests)
+        {
+
+            <div class="media pb-5 mb-5 border-bottom border-light">
+                <a class="flex-shrink-0" href="@item.Url" rel="external noopener">
+                    <img class="border bg-light media-img" src="@item.Thumbnail()" alt="" onerror="this.src='/images/x.png'" />
+                </a>
+                <div class="flex-grow-1 media-desc">
+                    <h3 class="fs-5">
+                        <a href="@item.Url" rel="external noopener">@item.Name</a>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            @*<a class="fs-6" asp-page="/Contests/Edit" asp-route-id="@item.Id" title="編集"><i class="fas fa-edit"></i></a>*@
+                            <a class="fs-6" asp-page="/Contests/Details" asp-route-id="@item.Id" title="詳細"><i class="far fa-info-circle"></i></a>
+                        }
+                    </h3>
+                    <ul class="list-unstyled mb-0">
+                        @if (item.Description != null)
+                        {
+                            <li class="mb-2">@item.Description</li>
+                        }
+                        @if (item.Host != null)
+                        {
+                            <li><i class="far fa-building fa-fw"></i> <span class="text-secondary">主催:</span> @item.Host</li>
+                        }
+                        @if (item.Requirements != null)
+                        {
+                            <li><i class="far fa-check-square fa-fw"></i> <span class="text-secondary">応募資格:</span> @item.Requirements</li>
+                        }
+
+                        <li><i class="far fa-calendar-alt fa-fw"></i> <span class="text-secondary">@((item.StartDate, item.EndDate).ToFriendlyDateTitle()):</span> <span class="deadline">@((item.StartDate, item.EndDate).ToFriendlyDate())</span></li>
+
+                        @if (item.Note != null)
+                        {
+                            <li><i class="far fa-sticky-note fa-fw"></i> <span class="text-secondary">@item.Note</span></li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="mt-5">
+        <div class="d-flex justify-content-center"><img src="/images/kei2.png" srcset="/images/kei2@2x.png 2x" alt="プロ生ちゃん（暮井 慧）" /></div>
+        <div class="small d-flex justify-content-center"><a href="http://line.me/S/sticker/1234712" rel="external noopener">開発がはかどるかもしれない LINE スタンプ販売中</a></div>
+    </div>
+
+</div>
