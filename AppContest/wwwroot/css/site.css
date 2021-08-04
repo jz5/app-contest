@@ -18,6 +18,7 @@ h1, h2, h3, h4, h5, h6, span.deadline, .nav-link {
 }
 
 .deadline, .duplicated, .wavy {
+    -webkit-text-decoration: underline wavy #6f42c1;
     text-decoration: underline wavy #6f42c1;
     text-underline-offset: 0.1rem;
 }
