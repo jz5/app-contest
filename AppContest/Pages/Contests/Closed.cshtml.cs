@@ -12,6 +12,7 @@ using MediatR;
 using System.Threading;
 using AutoMapper.QueryableExtensions;
 using AppContest.Infrastructure;
+using FluentValidation;
 
 namespace AppContest.Pages.Contests
 {
@@ -30,6 +31,14 @@ namespace AppContest.Pages.Contests
         public record Query : IRequest<Model>
         {
             public int? Year { get; init; }
+        }
+
+        public class QueryValidator : AbstractValidator<Query>
+        {
+            public QueryValidator()
+            {
+                RuleFor(m => m.Year).InclusiveBetween(2015, DateTime.UtcNow.AddHours(9).Year);
+            }
         }
 
         public record Model

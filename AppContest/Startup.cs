@@ -1,6 +1,7 @@
 using AppContest.Data;
 using AppContest.Infrastructure;
 using AppContest.Infrastructure.Tags;
+using EFCoreSecondLevelCacheInterceptor;
 using FluentValidation.AspNetCore;
 using HtmlTags;
 using MediatR;
@@ -38,9 +39,21 @@ namespace AppContest
         {
             services.AddMiniProfiler().AddEntityFramework();
 
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+            services.AddEFSecondLevelCache(options =>
+            {
+                options.UseMemoryCacheProvider(CacheExpirationMode.Absolute, TimeSpan.FromMinutes(30))
+                    .DisableLogging(false)
+                    // Don't cache null values. Remove this optional setting if it's not necessary.
+                    .SkipCachingResults(result =>
+                                result.Value == null || (result.Value is EFTableRows rows && rows.RowsCount == 0));
+            });
+
+            services.AddDbContext<ApplicationDbContext>((serviceProvider, optionsBuilder) =>
+                optionsBuilder
+                    .UseSqlServer(
+                        Configuration.GetConnectionString("DefaultConnection"))
+                    .AddInterceptors(serviceProvider.GetRequiredService<SecondLevelCacheInterceptor>()));
+
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddRoles<IdentityRole>()
