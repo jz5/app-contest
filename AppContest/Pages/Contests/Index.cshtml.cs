@@ -102,9 +102,9 @@ namespace AppContest.Pages.Contests
         public class Handler : IRequestHandler<Query, Model>
         {
             private readonly ApplicationDbContext _db;
-            private readonly IConfigurationProvider _configuration;
+            private readonly AutoMapper.IConfigurationProvider _configuration;
 
-            public Handler(ApplicationDbContext db, IConfigurationProvider configuration)
+            public Handler(ApplicationDbContext db, AutoMapper.IConfigurationProvider configuration)
             {
                 _db = db;
                 _configuration = configuration;

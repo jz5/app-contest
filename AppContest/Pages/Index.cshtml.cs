@@ -4,20 +4,10 @@ using AppContest.Models;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace AppContest.Pages
 {
@@ -30,15 +20,18 @@ namespace AppContest.Pages
 
         public Model Data { get; private set; }
 
-        public async Task OnGetAsync()
-            => Data = await _mediator.Send(new Query());
+        public async Task OnGetAsync(Query query)
+            => Data = await _mediator.Send(query);
 
         public record Query : IRequest<Model>
         {
+            public string Sort { get; init; }
         }
 
         public record Model
         {
+            public string Sort { get; init; }
+
             public IList<Contest> Contests { get; init; }
             public IList<Contest> RecentlyAddedContests { get; init; }
 
@@ -90,19 +83,12 @@ namespace AppContest.Pages
         public class Handler : IRequestHandler<Query, Model>
         {
             private readonly ApplicationDbContext _db;
-            private readonly IConfigurationProvider _configuration;
+            private readonly AutoMapper.IConfigurationProvider _configuration;
 
-            private readonly UserManager<IdentityUser> _userManager;
-            private readonly RoleManager<IdentityRole> _roleManager;
-
-
-            public Handler(ApplicationDbContext db, IConfigurationProvider configuration,
-                UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+            public Handler(ApplicationDbContext db, AutoMapper.IConfigurationProvider configuration)
             {
                 _db = db;
                 _configuration = configuration;
-                _userManager = userManager;
-                _roleManager = roleManager;
             }
 
             public async Task<Model> Handle(Query query, CancellationToken token)
@@ -111,17 +97,33 @@ namespace AppContest.Pages
                 var year = jst.Year;
                 var tommorow = new DateTime(jst.Year, jst.Month, jst.Day).AddDays(1);
 
-                var contests = await _db.Contests
-                    .AsNoTracking()
-                    .Where(x =>
-                        tommorow <= x.EndDate &&
-                        !x.IsHidden)
-                    .OrderByDescending(x => x.EndDate)
-                    .ProjectTo<Model.Contest>(_configuration)
-                    .ToListAsync(token);
+                List<Model.Contest> contests;
+                if (query.Sort == "date-asc")
+                {
+                    contests = await _db.Contests
+                        .AsNoTracking()
+                        .Where(x =>
+                            tommorow <= x.EndDate &&
+                            !x.IsHidden)
+                        .OrderBy(x => x.EndDate)
+                        .ProjectTo<Model.Contest>(_configuration)
+                        .ToListAsync(token);
+                }
+                else
+                {
+                    contests = await _db.Contests
+                        .AsNoTracking()
+                        .Where(x =>
+                            tommorow <= x.EndDate &&
+                            !x.IsHidden)
+                        .OrderByDescending(x => x.EndDate)
+                        .ProjectTo<Model.Contest>(_configuration)
+                        .ToListAsync(token);
+                }
 
                 var viewModel = new Model
                 {
+                    Sort = query.Sort,
                     Contests = contests,
                     RecentlyAddedContests = contests.OrderByDescending(x => x.CreationDateTime).Take(5).ToList()
                 };

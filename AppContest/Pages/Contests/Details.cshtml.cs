@@ -139,9 +139,9 @@ namespace AppContest.Pages.Contests
         public class QueryHandler : IRequestHandler<Query, Model>
         {
             private readonly ApplicationDbContext _db;
-            private readonly IConfigurationProvider _configuration;
+            private readonly AutoMapper.IConfigurationProvider _configuration;
 
-            public QueryHandler(ApplicationDbContext db, IConfigurationProvider configuration)
+            public QueryHandler(ApplicationDbContext db, AutoMapper.IConfigurationProvider configuration)
             {
                 _db = db;
                 _configuration = configuration;
