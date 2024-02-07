@@ -33,12 +33,12 @@
     <script src="https://kit.fontawesome.com/1e0f238851.js" crossorigin="anonymous"></script>
     <script>
         (function(d) {
-          var config = {
-            kitId: 'ijf6ghv',
-            scriptTimeout: 3000,
-            async: true
-          },
-          h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+            var config = {
+                    kitId: 'ijf6ghv',
+                    scriptTimeout: 3000,
+                    async: true
+                },
+                h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
         })(document);
     </script>
     @if (!SignInManager.IsSignedIn(User))
@@ -46,47 +46,55 @@
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5991185227226997"
             crossorigin="anonymous"></script>
     }
-</head>
-<body>
-    @*<mini-profiler />*@
-    <header>
+<script>
+    setTimeout(function() {
+        if (document.getElementsByTagName("html")[0].classList.contains('wf-active') != true) {
+            document.getElementsByTagName("html")[0].classList.add('loading-delay');
+        }
+    }, 3000);
+</script>
+
+        </head>
+        <body>
+        @*<mini-profiler />*@
+        <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-page="/Index"><i class="fas fa-rocket-launch theme-color"></i></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-page="/Index">募集中</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                募集終了
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                @for (var i = DateTime.Now.Year; i >= 2015; --i)
+        <div class="container-fluid">
+        <a class="navbar-brand" asp-area="" asp-page="/Index"><i class="fas fa-rocket-launch theme-color"></i></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+        <a class="nav-link" asp-page="/Index">募集中</a>
+        </li>
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        募集終了
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+        @for (var i = DateTime.Now.Year; i >= 2015; --i)
                                 {
                                     <li><a class="dropdown-item" asp-page="/Contests/Closed" asp-route-year="@i">@(i)年</a></li>
                                 }
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-page="/Links">お役立ちリンク</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-page="/Contact">情報提供</a>
-                        </li>
-                    </ul>
-                    <partial name="_LoginPartial" />
-                </div>
-            </div>
+        </ul>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" asp-page="/Links">お役立ちリンク</a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" asp-page="/Contact">情報提供</a>
+        </li>
+        </ul>
+        <partial name="_LoginPartial" />
+        </div>
+        </div>
         </nav>
-    </header>
+        </header>
 
 
-    @if (Context.Request.Path.StartsWithSegments("/Identity"))
+        @if (Context.Request.Path.StartsWithSegments("/Identity"))
     {
         <div class="container">
             <main>
@@ -103,19 +111,19 @@
     }
 
 
-    <footer class="footer w-100 bg-light text-secondary p-3 mt-5 small">
+        <footer class="footer w-100 bg-light text-secondary p-3 mt-5 small">
         <div class="ninja_onebutton">
-            <script type="text/javascript">
-                //<![CDATA[
-                (function (d) {
-                    if (typeof (window.NINJA_CO_JP_ONETAG_BUTTON_9813d92f60f3a85cbb108dbda34e2605) == 'undefined') {
-                        document.write("<sc" + "ript type='text\/javascript' src='\/\/omt.shinobi.jp\/b\/9813d92f60f3a85cbb108dbda34e2605'><\/sc" + "ript>");
-                    } else {
-                        window.NINJA_CO_JP_ONETAG_BUTTON_9813d92f60f3a85cbb108dbda34e2605.ONETAGButton_Load();
-                    }
-                })(document);
-                //]]>
-            </script><span class="ninja_onebutton_hidden" style="display:none;"></span><span style="display:none;" class="ninja_onebutton_hidden"></span>
+        <script type="text/javascript">
+        //<![CDATA[
+        (function (d) {
+            if (typeof (window.NINJA_CO_JP_ONETAG_BUTTON_9813d92f60f3a85cbb108dbda34e2605) == 'undefined') {
+                document.write("<sc" + "ript type='text\/javascript' src='\/\/omt.shinobi.jp\/b\/9813d92f60f3a85cbb108dbda34e2605'><\/sc" + "ript>");
+            } else {
+                window.NINJA_CO_JP_ONETAG_BUTTON_9813d92f60f3a85cbb108dbda34e2605.ONETAGButton_Load();
+            }
+        })(document);
+    //]]>
+</script><span class="ninja_onebutton_hidden" style="display:none;"></span><span style="display:none;" class="ninja_onebutton_hidden"></span>
         </div>
 
         <ul class="list-inline mb-1">

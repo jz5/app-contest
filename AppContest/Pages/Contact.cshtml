@@ -21,11 +21,19 @@
     <div class="row">
         <div class="mb-3">
             <h2 class="fs-4 mt-3 mb-3"><i class="far fa-comment-alt-smile theme-color"></i> @ViewData["Title"]</h2>
-            <div class="mb-1">コンテストの情報や、サイトへのコメント等 お待ちしています。返答が必要なお問い合わせは、info@pronama.jp まで。</div>
+            <div class="mb-1">コンテストの情報や、サイトへのコメント等 お待ちしています。</div>
             <div class="text-secondary mb-1"><i class="far fa-exclamation-triangle"></i> コンテスト情報の登録や修正をお約束するものではありません。また、個人情報を記載しないようお願いします。</div>
         </div>
+        
+        <div class="col mb-3">
+            <ul>
+                <li>Twitter: <a href="https://twitter.com/pronama">@@pronama</a></li>
+                <li>info@pronama.jp</li>
+            </ul>
+        </div>
 
-        @if (TempData["Succeeded"] != null)
+
+        @*@if (TempData["Succeeded"] != null)
         {
             <div class="col mb-3">
                 <div class="alert alert-info" role="alert">
@@ -46,7 +54,7 @@
             <div class="form-group">
                 <button type="submit" class="btn btn-light"><i class="far fa-paper-plane"></i> 送信</button>
             </div>
-        </form>
+        </form>*@
 
         <div>
             <i class="far fa-info-circle"></i> <a href="https://pronama.jp/about/" rel="external">運営者情報</a>

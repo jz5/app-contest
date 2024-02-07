@@ -1,18 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AppContest.Data;
+using AppContest.Infrastructure;
+using AppContest.Models;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using FluentValidation;
+using MediatR;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using AppContest.Data;
-using AppContest.Models;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using AutoMapper;
-using MediatR;
+using System.Linq;
 using System.Threading;
-using AutoMapper.QueryableExtensions;
-using AppContest.Infrastructure;
-using FluentValidation;
+using System.Threading.Tasks;
 
 namespace AppContest.Pages.Contests
 {
@@ -105,7 +105,8 @@ namespace AppContest.Pages.Contests
             {
                 var jst = DateTime.UtcNow.AddHours(9);
                 var year = query.Year ?? jst.Year;
-                var tommorow = new DateTime(jst.Year, jst.Month, jst.Day).AddDays(1);
+                var tomorrow = new DateTime(jst.Year, jst.Month, jst.Day).AddDays(1);
+                var today = new DateTime(jst.Year, jst.Month, jst.Day);
 
                 DateTime sd, ed;
                 if (year == jst.Year)
@@ -122,7 +123,7 @@ namespace AppContest.Pages.Contests
                 var contests = await _db.Contests
                     .AsNoTracking()
                     .Where(x =>
-                        x.EndDate < tommorow &&
+                        x.EndDate < today &&
                         //sd <= x.StartDate && x.StartDate < ed ||
                         sd <= x.EndDate && x.EndDate < ed &&
                         !x.IsHidden)

@@ -4,10 +4,14 @@ using AppContest.Models;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace AppContest.Pages
 {
@@ -95,7 +99,8 @@ namespace AppContest.Pages
             {
                 var jst = DateTime.UtcNow.AddHours(9);
                 var year = jst.Year;
-                var tommorow = new DateTime(jst.Year, jst.Month, jst.Day).AddDays(1);
+                var tomorrow = new DateTime(jst.Year, jst.Month, jst.Day).AddDays(1);
+                var today = new DateTime(jst.Year, jst.Month, jst.Day);
 
                 List<Model.Contest> contests;
                 if (query.Sort == "date-asc")
@@ -103,7 +108,7 @@ namespace AppContest.Pages
                     contests = await _db.Contests
                         .AsNoTracking()
                         .Where(x =>
-                            tommorow <= x.EndDate &&
+                            today <= x.EndDate &&
                             !x.IsHidden)
                         .OrderBy(x => x.EndDate)
                         .ProjectTo<Model.Contest>(_configuration)
@@ -114,7 +119,7 @@ namespace AppContest.Pages
                     contests = await _db.Contests
                         .AsNoTracking()
                         .Where(x =>
-                            tommorow <= x.EndDate &&
+                            today <= x.EndDate &&
                             !x.IsHidden)
                         .OrderByDescending(x => x.EndDate)
                         .ProjectTo<Model.Contest>(_configuration)
