@@ -48,12 +48,30 @@ namespace AppContest
                                 result.Value == null || (result.Value is EFTableRows rows && rows.RowsCount == 0));
             });
 
-            services.AddDbContext<ApplicationDbContext>((serviceProvider, optionsBuilder) =>
-                optionsBuilder
-                    .UseSqlServer(
-                        Configuration.GetConnectionString("DefaultConnection"))
-                    .AddInterceptors(serviceProvider.GetRequiredService<SecondLevelCacheInterceptor>()));
+            // SQL Server
+            // services.AddDbContext<ApplicationDbContext>((serviceProvider, optionsBuilder) =>
+            //     optionsBuilder
+            //         .UseSqlServer(
+            //             Configuration.GetConnectionString("DefaultConnection"))
+            //         .AddInterceptors(serviceProvider.GetRequiredService<SecondLevelCacheInterceptor>()));
 
+            // MySQL
+            // Replace with your server version and type.
+            // Use 'MariaDbServerVersion' for MariaDB.
+            // Alternatively, use 'ServerVersion.AutoDetect(connectionString)'.
+            // For common usages, see pull request #1233.
+            var serverVersion = new MySqlServerVersion(new Version(5, 7));
+
+            services.AddDbContext<ApplicationDbContext>(
+                dbContextOptions => dbContextOptions
+                    .UseMySql(Configuration.GetConnectionString("DefaultConnection"), serverVersion)
+                    // // The following three options help with debugging, but should
+                    // // be changed or removed for production.
+                    // .LogTo(Console.WriteLine, LogLevel.Information)
+                    // .EnableSensitiveDataLogging()
+                    // .EnableDetailedErrors()
+            );
+            
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddRoles<IdentityRole>()
